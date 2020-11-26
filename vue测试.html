@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="asd">
+
+        <label v-for='(itme,index) in list'><input type="checkbox" id="jack" :value="itme"
+                v-model="checkedNames">{{itme}}</label>
+        <br>
+        <button @click='chos'>123</button>
+        <span>Checked names: {{ checkedNames }}</span>
+        <span>Checked names: {{ chooses }}</span>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: '#asd',
+            data: {
+                checkedNames: [],
+                chooses: '',
+                list: ['123', '321', '1234']
+            },
+            methods: {
+                chos: function () {
+                    this.chooses = this.checkedNames.join();
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 开发环境版本,包含了有帮助的命令行警告 -->
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url('iconfont.eot');
+            src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+                url('iconfont.woff2') format('woff2'),
+                url('iconfont.woff') format('woff'),
+                url('iconfont.ttf') format('truetype'),
+                url('iconfont.svg#iconfont') format('svg');
+        }
+
+        .iconfont {
+            font-family: "iconfont" !important;
+            /* line-height: 10px; */
+            font-size: 10px;
+            font-style: normal;
+            /* display: inline-block; */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f4f4f4;
+        }
+
+        section {
+
+            margin: 50px auto;
+            width: 500px;
+            font-size: 28px;
+            text-align: center;
+            color: #b07a7f;
+        }
+
+        .header input {
+            width: 300px;
+            height: 50px;
+            border: none;
+            background-color: #fefefe;
+            border-radius: 10px;
+            outline: none;
+            color: rgba(145, 122, 122, 0.575);
+            /* opacity: 0.5; */
+            font-size: 20px;
+            text-indent: 10px;
+        }
+
+        .main {
+            margin: 2px auto;
+            width: 300px;
+        }
+
+        .main li {
+            margin: 1px;
+            list-style-type: none;
+            background-color: #fefefe;
+            text-align: left;
+        }
+
+        .vie {
+            height: 37px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .vie label {
+            font-size: 20px;
+        }
+
+        .index {
+            font-size: 13px;
+            margin-left: 10px;
+        }
+
+        .destroy {
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+            border: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="todoapp">
+        <header class="header">
+            <h1>记事本</h1>
+            <input type="text" autofocus="autofocus" autocomplete="off" placeholder="请输入任务" v-model="input_value"
+                @keyup.enter='add'>
+        </header>
+        <section class="main">
+            <ul class="todo-list">
+                <li class="todu" v-for="(itme,index) in list">
+                    <div class="vie">
+                        <span class="index">{{ index+1}}</span>
+                        <label>{{itme}}</label>
+                        <button class="destroy" @click='delet(index)'><span class="iconfont">&#xe6a4;</span></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </section>
+    <script src="vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#todoapp',
+            data: {
+                list: ['写代码', '吃饭饭', '睡觉觉'],
+                input_value: "好好学习，天天向上！"
+            },
+            methods: {
+                add: function () {
+                    this.list.push(this.input_value);
+                    this.input_value = '';
+                },
+                delet: function (index) {
+                    // console.log(111);
+                    this.list.splice(index, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

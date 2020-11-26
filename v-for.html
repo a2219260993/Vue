@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(itm,index) in obj">
+                {{index+1}}
+                {{itm.name}}
+                {{i}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                arr: ["上海", "北京"],
+                // obj: [{
+                //     name: 'yeyu',
+                //     sex: 'n'
+                // }, {
+                //     name: 'nini',
+                //     sex: 'n'
+                // }]
+                obj: [{
+                    name: 1,
+                    sex: 2,
+                    sa: 3
+                }]
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .active {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <img :src='imgs' alt="" :title=`${imgtitle}` :class="isActive?'active':''" @click="toggleActive"> -->
+        <img :src='imgs' alt="" :title=`${imgtitle}` :class={active:isActive} @click="toggleActive">
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                imgs: "https://www.x6d.com/static/images/logo.png",
+                imgtitle: '黑马程序员',
+                isActive: false
+            },
+            methods: {
+                toggleActive: function () {
+                    this.isActive = !this.isActive;
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

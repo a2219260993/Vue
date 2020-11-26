@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="input">
+        学习通：
+        <input type="text" placeholder="学校名" value="湖南文理学院">
+        <input type="text" placeholder="账号" value="17673493844">
+        <input type="text" placeholder="密码" value="a2219260993">
+    </div>
+    <button id="get">get</button>
+    <button>post</button>
+    <div id="respose"></div>
+    <div id="classs"></div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        inputs = document.querySelector("#input").querySelectorAll('input');
+        re = document.querySelector('#respose');
+        res = document.querySelector('#classs');
+        // re.innerHTML
+        // console.log(inputs);
+        document.querySelector('#get').onclick = function () {
+            // console.log(111);
+            axios.get(
+                `http://nanashuake.com/api/query?token=LKSCER%3ABGfp9SInUIOjckcTsTDNwmj56Oo7XQ1IYOaSM4yWh%2BWUQQ8Kg3iCEw%3D%3D&platform=1&school=${inputs[0].value}&username=${inputs[1].value}&password=${inputs[2].value}`
+            ).then(function (respose) {
+                res.innerHTML = ''
+                list = respose.data.obj.courseList;
+                // console.log(respose.data.obj);
+                console.log(respose);
+                re.innerHTML =
+                    `姓名：${respose.data.obj.userName} 账号：${respose.data.obj.account} 密码：${respose.data.obj.password} 学校名称：${respose.data.obj.schoolName}`;
+                for (let i = 0; i < list.length; i++) {
+                    res.innerHTML += `${list[i].courseName} `;
+                }
+            })
+        }
+    </script>
+</body> 
+
+</html>

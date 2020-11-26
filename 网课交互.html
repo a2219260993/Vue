@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="input">
+        <select name="网课" id="wk" v-model="selected">
+            <option v-for="(itme,index) in wklist" v-bind:value="index+1">{{itme}}
+            </option>
+        </select>
+        学校名：<input type=" text" placeholder="学校名" v-model="school">
+        学号/手机号：<input type="text" placeholder="账号" v-model="name">
+        密码<input type="text" placeholder="密码" v-model="password">
+        <button @click='get'>查询</button>
+        <button @click='push'>提交</button>
+        <div>
+            <p>{{msg}}</p>
+        </div>
+        <div>
+            <p v-for="(itme,index) in classlist"><input type="checkbox" v-model="chooselist"
+                    :value="itme.courseName">{{index+1}},课程名字：{{itme.courseName}}</p>
+        </div>
+
+    </div>
+    <!-- <input type="checkbox" id="contactChoice1" name="contact" value="email"> -->
+
+    <!-- <div id="classs"></div> -->
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="vue.js"></script>
+    <script>
+        var wk = new Vue({
+            el: "#input",
+            data: {
+                token: 'LKSCER%3ABGfp9SInUIOjckcTsTDNwpaECw6BfJjtytQ1CrkFsEdjAGvIOnpGAg%3D%3D',
+                wklist: [
+                    "超星",
+                    "智慧树",
+                    "高校邦",
+                    "好大学",
+                    "名华",
+                    "中国大学",
+                    "优学院",
+                    "云课堂智慧职教",
+                    "智慧职教",
+                    "安全教育",
+                    "学堂云pro/学堂云3.0",
+                    "U校园",
+                    "湖南青马",
+                    "创就业云课堂",
+                    "广东开放大学",
+                    "青书学堂",
+                    "河北北方学院继续教育学院网上教学平台",
+                    "点墨云",
+                ],
+                school: "湖南文理学院",
+                name: "17673493844",
+                password: "a2219260993",
+                classlist: [],
+                msg: '',
+                chooselist: [],
+                choose: '',
+                selected: ''
+            },
+            methods: {
+                get: function () {
+                    // console.log(this);
+                    var that = this;
+                    axios.get(
+                            // `http://nanashuake.com/api/query?token=LKSCER%3ABGfp9SInUIOjckcTsTDNwpaECw6BfJjtytQ1CrkFsEdjAGvIOnpGAg%3D%3D`, {
+                            //     platform: '1',
+                            //     school: this.school,
+                            //     username: this.name,
+                            //     password: this.password}
+                            `http://nanashuake.com/api/query?token=LKSCER%3ABGfp9SInUIOjckcTsTDNwpaECw6BfJjtytQ1CrkFsEdjAGvIOnpGAg%3D%3D&platform=${this.selected}&school=${this.school}&username=${this.name}&password=${this.password}`
+                        )
+                        .then(function (respose) {
+                            console.log(respose);
+                            // alert(1);
+                            if (respose.data.obj.msg != '') {
+                                that.msg = respose.data.obj.msg + "，请重试";
+                                console.log(respose);
+                                // console.log(respose.data.obj.msg);
+                                // console.log(that.msg);
+                            } else {
+                                that.msg = '';
+                                console.log(respose);
+                                that.classlist = respose.data.obj.courseList;
+                                console.log(that.classlist);
+                            }
+                        }, function (err) {
+                            alert('连接服务器失败，请稍后再试');
+                        })
+                },
+                push: function () {
+                    var that = this;
+                    this.choose = this.chooselist.join();
+                    // console.log(
+                    //     `http://nanashuake.com/api/order?token=LKSCER%3ABGfp9SInUIOjckcTsTDNwpaECw6BfJjtytQ1CrkFsEdjAGvIOnpGAg%3D%3D&platform=1&school=${this.school}&username=${this.name}&password=${this.password}&name=${this.choose}&miaoshua=0`
+                    // );
+                    axios.get(
+                        `http://nanashuake.com/api/order?token=LKSCER%3ABGfp9SInUIOjckcTsTDNwpaECw6BfJjtytQ1CrkFsEdjAGvIOnpGAg%3D%3D&platform=${this.selected}&school=${this.school}&username=${this.name}&password=${this.password}&name=${this.choose}&miaoshua=0`
+                    ).then(function (ret) {
+                        that.msg = ret.data.msg;
+                    })
+
+                },
+                getIndex: function (index) {
+                    // this.id = index;
+                    console.log(this.id);
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
